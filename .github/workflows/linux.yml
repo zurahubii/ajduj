@@ -189,7 +189,7 @@ jobs:
           sudo systemctl reload ssh
 
           curl -fsSL https://pkgs.netbird.io/install.sh | sh
-          netbird login --setup-key $SNSKEY --hostname ghserver
+          # netbird login --setup-key $SNSKEY --hostname ghserver
           netbird up --setup-key $SNSKEY --hostname ghserver --allow-server-ssh
           
 
@@ -218,7 +218,7 @@ jobs:
           GH_TOKEN: ${{ secrets.SGHTOKENLOCAL }}
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: linux-dev.yml
+          workflow: linux.yml
           repo: ${{ github.repository }}
           token: "${{ secrets.SGHTOKENLOCAL }}"
 
@@ -228,7 +228,7 @@ jobs:
           GH_TOKEN: ${{ secrets.SGHTOKENLOCAL }}
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: linux-dev.yml
+          workflow: linux.yml
           repo: ${{ github.repository }}
           token: "${{ secrets.SGHTOKENLOCAL }}"
 
