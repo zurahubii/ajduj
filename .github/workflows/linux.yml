@@ -51,10 +51,22 @@ jobs:
           done;
 
   build:
+    if: ${{ github.event.inputs.mode == 'default' || github.event.inputs.mode == 'manual' }}
     runs-on: ubuntu-latest
+    #if: ${{ github.event_name == 'schedule' }}
+    permissions:
+      actions: write
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false      
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
 
       - name: Run a one-line script
         run: echo Hello, world!
