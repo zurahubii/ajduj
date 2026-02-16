@@ -18,7 +18,7 @@ on:
 env:
   SGHREPO: ${{ secrets.SGHREPO }}
   SGHDIR: ${{ secrets.SGHDIR }}
-  GH_TOKEN: ${{ secrets.SGHTOKENLOCAL }}
+  GH_TOKEN: ${{ secrets.SGHTOKEN }}
   SNUSER: ${{ secrets.SNUSER }}
   SNUSERTOKEN: ${{ secrets.SNUSERTOKEN }}
   SNSKEY: ${{ secrets.SNSKEY }}
