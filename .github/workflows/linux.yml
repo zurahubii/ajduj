@@ -152,7 +152,7 @@ jobs:
           sudo cp ./cloudflared-linux-amd64 /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
           mkdir -p ~/.ssh
-          cat ./$SGHDIR/fixes/cloudflare-sshconfig | tee -a ~/.ssh/config
+          cat ./$SGHDIR/fixes/cloudflare-linux-sshconfig | tee -a ~/.ssh/config
           nohup /usr/local/bin/cloudflared tunnel --url ssh://localhost:22 > output.msg 2> output.err &
           lineStringToCheck="\.trycloudflare.com"
           fileTocheck="./output.err"
