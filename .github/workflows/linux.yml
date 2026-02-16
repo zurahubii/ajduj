@@ -199,12 +199,12 @@ jobs:
 
       - uses: ahmadnassri/action-workflow-queue@v1
 
-      - name: start-app    
-        if: ${{ github.event.inputs.mode == 'manual' }}
-        run: |
-          cd ./$SGHDIR && git pull
-          cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
-          pm2 start ./pm2-opt-2024-1.json
+      # - name: start-app    
+      #   if: ${{ github.event.inputs.mode == 'manual' }}
+      #   run: |
+      #     cd ./$SGHDIR && git pull
+      #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
+      #     pm2 start ./pm2-opt-2024-1.json
 
       - name: Sleep for 5 hours
         uses: jakejarvis/wait-action@master
