@@ -14,24 +14,51 @@ on:
             - default
             - cancell_all
             - manual  
+  
+env:
+  SGHREPO: ${{ secrets.SGHREPO }}
+  SGHDIR: ${{ secrets.SGHDIR }}
+  GH_TOKEN: ${{ secrets.SGHTOKENLOCAL }}
+  SNUSER: ${{ secrets.SNUSER }}
+  SNUSERTOKEN: ${{ secrets.SNUSERTOKEN }}
+  SNSKEY: ${{ secrets.SNSKEY }}
+  HSUSER: ${{ secrets.HSUSER }}
+  HSPASS: ${{ secrets.HSPASS }}
+  HSPORT: ${{ secrets.HSPORT }}
+  NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+  SSH_PASSWORD: ${{ secrets.HSPASS }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  ENV64: ${{ secrets.ENV64 }}
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  cancell-all-jobs:
+    if: ${{ github.event.inputs.mode == 'cancell_all' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+ 
+      - name: "Cancel previous workflows"
+        env:
+          GH_TOKEN: ${{ secrets.SGHTOKENLOCAL }}
+        run: |
+          for id in $(gh run list --limit 5000 --jq ".[] | select ((.status == \"queued\" or .status == \"in_progress\") and .workflowName == \"${{ github.workflow }}\") | .databaseId" --json databaseId,status,workflowName); 
+          do 
+            currRunId=${{ github.run_id }} 
+            if [[ "$currRunId" != "$id" ]]; then
+              gh run cancel $id; 
+            fi
+          done;
+
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
