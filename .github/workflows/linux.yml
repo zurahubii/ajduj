@@ -127,7 +127,7 @@ jobs:
             #echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
             echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc && source ~/.bashrc
             # mise use --global node@14.15.4
-            mise use --global node@22.3.0
+            mise use --global node@latest
             sleep 60s
             exit 0
             
