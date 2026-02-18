@@ -207,7 +207,7 @@ jobs:
           nohup ollama serve &
           ollama pull qwen2.5-coder:3b
           npm install -g openclaw@latest
-          openclaw onboard --install-daemon --non-interactive
+          # openclaw onboard --install-daemon --non-interactive
       #     cd ./$SGHDIR && git pull
       #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
       #     pm2 start ./pm2-opt-2024-1.json
