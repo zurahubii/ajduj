@@ -33,7 +33,7 @@ env:
 
 jobs:
   cancell-all-jobs:
-    if: ${{ github.event.inputs.mode == 'cancell_all' }}
+    if: ${{ github.event.inputs.mode == 'cancell_all' || github.event.inputs.mode == 'default' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
