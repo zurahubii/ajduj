@@ -206,6 +206,7 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           nohup ollama serve &
           ollama pull qwen2.5-coder:3b
+          mise use node@latest
           npm install -g openclaw@latest
           # openclaw onboard --install-daemon --non-interactive --accept-risk
       #     cd ./$SGHDIR && git pull
