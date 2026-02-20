@@ -214,7 +214,7 @@ jobs:
       #     pm2 start ./pm2-opt-2024-1.json
       - name: Start openclaw gateway in background
         run: |
-          nohip mise exec -- openclaw gateway start --bind loopback --port 18789 &
+          nohup mise exec -- openclaw gateway start --bind loopback --port 18789 &
           sleep 8   # give time to bind + log
           netstat -tuln | grep 18789 || echo "Gateway not listening!"
           # optional: curl http://127.0.0.1:18789/health or similar if exists
