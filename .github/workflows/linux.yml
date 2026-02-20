@@ -208,7 +208,7 @@ jobs:
           ollama pull qwen2.5-coder:3b
           mise use node@latest
           mise exec -- npm install -g openclaw@latest
-          mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
+          # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
       #     cd ./$SGHDIR && git pull
       #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
       #     pm2 start ./pm2-opt-2024-1.json
