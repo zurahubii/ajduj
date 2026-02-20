@@ -205,13 +205,21 @@ jobs:
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
           # nohup ollama serve &
-          # ollama pull qwen2.5-coder:3b
+          ollama pull qwen2.5-coder:3b
           mise use node@latest
           mise exec -- npm install -g openclaw@latest
-          mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
+          # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
       #     cd ./$SGHDIR && git pull
       #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
       #     pm2 start ./pm2-opt-2024-1.json
+      - name: Start openclaw gateway in background
+        run: |
+          nohip mise exec -- openclaw gateway start --bind loopback --port 18789 &
+          sleep 8   # give time to bind + log
+          netstat -tuln | grep 18789 || echo "Gateway not listening!"
+          # optional: curl http://127.0.0.1:18789/health or similar if exists
+          timeout 15s bash -c 'until nc -z 127.0.0.1 18789; do sleep 1; done' || echo "Timeout waiting for gateway"
+          mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
 
       - name: Sleep for 5 hours
         uses: jakejarvis/wait-action@master
