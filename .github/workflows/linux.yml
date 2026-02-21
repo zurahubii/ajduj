@@ -208,7 +208,7 @@ jobs:
           ollama pull qwen2.5-coder:3b
           # mise use node@latest
           # mise exec -- npm install -g openclaw@latest
-          set OPENCLAW_NO_PROMPT 1
+          # set OPENCLAW_NO_PROMPT 1
           echo "export OPENCLAW_NO_PROMPT=1" >> $HOME/.bashrc
           curl -fsSL https://openclaw.ai/install.sh | bash
           # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
