@@ -214,15 +214,18 @@ jobs:
       #     pm2 start ./pm2-opt-2024-1.json
       - name: Start openclaw gateway in background
         run: |
-          nohup mise exec -- openclaw gateway install
-          sleep 8   # give time to bind + log
-          nohup mise exec -- openclaw gateway start --bind loopback --port 18789 &
-          # systemctl --user start openclaw-gateway.service
-          sleep 8   # give time to bind + log
-          netstat -tuln | grep 18789 || echo "Gateway not listening!"
-          # optional: curl http://127.0.0.1:18789/health or similar if exists
-          timeout 15s bash -c 'until nc -z 127.0.0.1 18789; do sleep 1; done' || echo "Timeout waiting for gateway"
-          mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
+          curl -fsSL https://openclaw.ai/install.sh | bash
+          openclaw onboard --non-interactive --mode local --skip-skills
+          openclaw gateway install
+          # nohup mise exec -- openclaw gateway install
+          # sleep 8   # give time to bind + log
+          # nohup mise exec -- openclaw gateway start --bind loopback --port 18789 &
+          # # systemctl --user start openclaw-gateway.service
+          # sleep 8   # give time to bind + log
+          # netstat -tuln | grep 18789 || echo "Gateway not listening!"
+          # # optional: curl http://127.0.0.1:18789/health or similar if exists
+          # timeout 15s bash -c 'until nc -z 127.0.0.1 18789; do sleep 1; done' || echo "Timeout waiting for gateway"
+          # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
 
       - name: Sleep for 5 hours
         uses: jakejarvis/wait-action@master
