@@ -206,17 +206,19 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           nohup ollama serve &
           ollama pull qwen2.5-coder:3b
-          mise use node@latest
-          mise exec -- npm install -g openclaw@latest
+          # mise use node@latest
+          # mise exec -- npm install -g openclaw@latest
+          curl -fsSL https://openclaw.ai/install.sh | bash
           # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
       #     cd ./$SGHDIR && git pull
       #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
       #     pm2 start ./pm2-opt-2024-1.json
-      - name: Start openclaw gateway in background
-        run: |
-          curl -fsSL https://openclaw.ai/install.sh | bash
-          openclaw onboard --non-interactive --mode local --skip-skills
-          openclaw gateway install
+
+      # - name: Start openclaw gateway in background
+      #   run: |
+      #     curl -fsSL https://openclaw.ai/install.sh | bash
+      #     openclaw onboard --non-interactive --mode local --skip-skills
+      #     openclaw gateway install
           # nohup mise exec -- openclaw gateway install
           # sleep 8   # give time to bind + log
           # nohup mise exec -- openclaw gateway start --bind loopback --port 18789 &
