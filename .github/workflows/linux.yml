@@ -209,7 +209,7 @@ jobs:
           ollama pull qwen2.5-coder:3b
           curl -LsSf https://astral.sh/uv/install.sh | sh
           uv tool install nanobot-ai
-          cp ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
+          cp -r ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
           yes | nanobot onboard || true
           sudo apt install screen
           screen -dmS nanobot nanobot start
