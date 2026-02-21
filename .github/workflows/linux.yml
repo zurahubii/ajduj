@@ -211,15 +211,19 @@ jobs:
           sleep 8
           ollama pull qwen2.5-coder:3b
 
+          # curl https://localai.io/install.sh | sh
+          # local-ai run ollama://qwen2.5-coder:3b
+
           curl -fsSLO https://github.com/zeroclaw-labs/zeroclaw/releases/download/v0.1.1/zeroclaw-x86_64-unknown-linux-gnu.tar.gz
           tar xzf zeroclaw-x86_64-unknown-linux-gnu.tar.gz
           install -m 0755 zeroclaw "$HOME/.cargo/bin/zeroclaw"
-          # curl -LsSf https://astral.sh/uv/install.sh | sh
-          # uv tool install nanobot-ai
-          # cp -r ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
+
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          uv tool install nanobot-ai
+          cp -r ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
           # yes | nanobot onboard || true
-          # sudo apt install screen
-          # screen -dmS nanobot nanobot start
+          sudo apt install screen
+          screen -dmS nanobot nanobot start
           # # sleep 8
           # # nanobot gateway
 
