@@ -206,11 +206,13 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           nohup ollama serve &
           ollama pull qwen2.5-coder:3b
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          uv tool install nanobot-ai
           # mise use node@latest
           # mise exec -- npm install -g openclaw@latest
           # set OPENCLAW_NO_PROMPT 1
-          echo "export OPENCLAW_NO_PROMPT=1" >> $HOME/.bashrc
-          curl -fsSL https://openclaw.ai/install.sh | bash
+          # echo "export OPENCLAW_NO_PROMPT=1" >> $HOME/.bashrc
+          # curl -fsSL https://openclaw.ai/install.sh | bash
           # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
       #     cd ./$SGHDIR && git pull
       #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
