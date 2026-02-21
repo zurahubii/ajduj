@@ -209,9 +209,11 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
           uv tool install nanobot-ai
           cp ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
-          nanobot onboard
-          sleep 8
-          nanobot gateway
+          yes | nanobot onboard || true
+          sudo apt install screen
+          screen -dmS nanobot nanobot start
+          # sleep 8
+          # nanobot gateway
           # mise use node@latest
           # mise exec -- npm install -g openclaw@latest
           # set OPENCLAW_NO_PROMPT 1
