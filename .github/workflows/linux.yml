@@ -205,6 +205,7 @@ jobs:
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
           nohup ollama serve &
+          sleep 8
           ollama pull qwen2.5-coder:3b
           curl -LsSf https://astral.sh/uv/install.sh | sh
           uv tool install nanobot-ai
