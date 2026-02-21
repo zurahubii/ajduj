@@ -200,6 +200,9 @@ jobs:
 
       - uses: ahmadnassri/action-workflow-queue@v1
 
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: start-app    
       #   if: ${{ github.event.inputs.mode == 'manual' }}
         run: |
@@ -207,14 +210,19 @@ jobs:
           nohup ollama serve &
           sleep 8
           ollama pull qwen2.5-coder:3b
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          uv tool install nanobot-ai
-          cp -r ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
-          yes | nanobot onboard || true
-          sudo apt install screen
-          screen -dmS nanobot nanobot start
-          # sleep 8
-          # nanobot gateway
+
+          curl -fsSLO https://github.com/zeroclaw-labs/zeroclaw/releases/download/v0.1.1/zeroclaw-x86_64-unknown-linux-gnu.tar.gz
+          tar xzf zeroclaw-x86_64-unknown-linux-gnu.tar.gz
+          install -m 0755 zeroclaw "$HOME/.cargo/bin/zeroclaw"
+          # curl -LsSf https://astral.sh/uv/install.sh | sh
+          # uv tool install nanobot-ai
+          # cp -r ./$SGHDIR/fixes/ghrunner-dotfiles/.nanobot $HOME/.
+          # yes | nanobot onboard || true
+          # sudo apt install screen
+          # screen -dmS nanobot nanobot start
+          # # sleep 8
+          # # nanobot gateway
+
           # mise use node@latest
           # mise exec -- npm install -g openclaw@latest
           # set OPENCLAW_NO_PROMPT 1
@@ -224,21 +232,6 @@ jobs:
       #     cd ./$SGHDIR && git pull
       #     cd ./data && git checkout main && git pull --rebase --autostash && cd ..;
       #     pm2 start ./pm2-opt-2024-1.json
-
-      # - name: Start openclaw gateway in background
-      #   run: |
-      #     curl -fsSL https://openclaw.ai/install.sh | bash
-      #     openclaw onboard --non-interactive --mode local --skip-skills
-      #     openclaw gateway install
-          # nohup mise exec -- openclaw gateway install
-          # sleep 8   # give time to bind + log
-          # nohup mise exec -- openclaw gateway start --bind loopback --port 18789 &
-          # # systemctl --user start openclaw-gateway.service
-          # sleep 8   # give time to bind + log
-          # netstat -tuln | grep 18789 || echo "Gateway not listening!"
-          # # optional: curl http://127.0.0.1:18789/health or similar if exists
-          # timeout 15s bash -c 'until nc -z 127.0.0.1 18789; do sleep 1; done' || echo "Timeout waiting for gateway"
-          # mise exec -- openclaw onboard --install-daemon --non-interactive --accept-risk
 
       - name: Sleep for 5 hours
         uses: jakejarvis/wait-action@master
