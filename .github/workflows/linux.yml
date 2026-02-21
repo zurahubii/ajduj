@@ -206,8 +206,9 @@ jobs:
       - name: start-app    
       #   if: ${{ github.event.inputs.mode == 'manual' }}
         run: |
+          set -gx OLLAMA_KEEP_ALIVE -1
           curl -fsSL https://ollama.com/install.sh | sh
-          nohup ollama serve &
+          nohup OLLAMA_KEEP_ALIVE=-1 ollama serve &
           sleep 8
           ollama pull qwen2.5-coder:3b
 
