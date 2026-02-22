@@ -218,7 +218,7 @@ jobs:
           tar xzf zeroclaw-x86_64-unknown-linux-gnu.tar.gz
           # install -m 0755 zeroclaw "$HOME/.cargo/bin/zeroclaw"
           cp zeroclaw "$HOME/.local/bin/zeroclaw"
-          cp zeroclaw "/usr/bin/zeroclaw"
+          sudo cp zeroclaw "/usr/bin/zeroclaw"
 
           curl -LsSf https://astral.sh/uv/install.sh | sh
           uv tool install nanobot-ai
